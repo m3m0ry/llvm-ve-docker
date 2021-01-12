@@ -8,7 +8,7 @@ ADD             https://www.hpc.nec/repos/TSUBASA-soft-release-2.3-1.noarch.rpm 
 ADD             TSUBASA-repo.repo /tmp
 ADD             sxaurora.repo /tmp
 ARG             RELEASE_RPM=/tmp/TSUBASA-soft-release-*.noarch.rpm
-RUN             yum -y install $RELEASE_RPM ; \
+RUN             yum -y install $RELEASE_RPM make ; \
                 cp /tmp/*.repo /etc/yum.repos.d ; \
                 rm /tmp/*.repo /tmp/*.rpm ; \
                 yum clean all 
@@ -16,4 +16,5 @@ RUN             yum -y install $RELEASE_RPM ; \
 RUN             yum -y install llvm-ve-rv-1.8.0
 ADD		llvmvervvars.sh /usr/local/ve/llvm-ve-rv-1.8.0/bin
 #ENV            LOG4C_RCPATH=/etc/opt/nec/ve/veos
-CMD             ["/bin/bash"]
+#ENTRYPOINT      ["/bin/bash", "-i"]
+ENTRYPOINT . /usr/local/ve/llvm-ve-rv-1.8.0/bin/llvmvervvars.sh && /bin/bash -i # TODO this executes bash in sh
