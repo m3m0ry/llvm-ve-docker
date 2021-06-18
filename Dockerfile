@@ -8,13 +8,12 @@ ADD             https://www.hpc.nec/repos/TSUBASA-soft-release-2.3-1.noarch.rpm 
 ADD             TSUBASA-repo.repo /tmp
 ADD             sxaurora.repo /tmp
 ARG             RELEASE_RPM=/tmp/TSUBASA-soft-release-*.noarch.rpm
-RUN             yum -y install $RELEASE_RPM make ; \
+RUN             yum -y install $RELEASE_RPM ; \
                 cp /tmp/*.repo /etc/yum.repos.d ; \
                 rm /tmp/*.repo /tmp/*.rpm ; \
                 yum clean all 
 #RUN             yum -y group install ve-container nec-sdk-runtime ; \
-RUN             yum -y install llvm-ve-rv-1.8.0
-ADD		llvmvervvars.sh /usr/local/ve/llvm-ve-rv-1.8.0/bin
+RUN             yum -y install llvm-ve-1.20.0 llvm-ve-link-1.20.0
+ADD		llvmvervvars.sh /opt/nec/nosupport
 #ENV            LOG4C_RCPATH=/etc/opt/nec/ve/veos
-#ENTRYPOINT      ["/bin/bash", "-i"]
-ENTRYPOINT . /usr/local/ve/llvm-ve-rv-1.8.0/bin/llvmvervvars.sh && /bin/bash -i # TODO this executes bash in sh
+CMD             ["/bin/bash"]
