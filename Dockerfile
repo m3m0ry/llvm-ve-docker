@@ -12,6 +12,7 @@ RUN             yum -y install $RELEASE_RPM ; \
                 cp /tmp/*.repo /etc/yum.repos.d ; \
                 rm /tmp/*.repo /tmp/*.rpm ; \
                 yum clean all 
+RUN             yum -y install make
 #RUN             yum -y group install ve-container nec-sdk-runtime ; \
 RUN             yum -y install llvm-ve-1.20.0 llvm-ve-link-1.20.0
 ADD		llvmvervvars.sh /opt/nec/nosupport
